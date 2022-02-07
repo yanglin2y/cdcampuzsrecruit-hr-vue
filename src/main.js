@@ -70,7 +70,7 @@ axios.interceptors.response.use(function (response) {
   if (status === 401) {
     // 判断状态码是401 跳转到登录
     Notify({ type: 'danger', message: '请先登陆' })
-    router.push({ path: '/user/login' })
+    router.push({ path: '/login' })
   }
   if (status === 500) {
     Notify({ type: 'danger', message: '服务器异常' })
