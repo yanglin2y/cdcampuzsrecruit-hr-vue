@@ -38,14 +38,14 @@
         </el-select>
       </el-form-item>
       <el-form-item prop="minsalary"
-                    label="最低工资">
+                    label="最低工资(K)">
         <el-input type="text"
                   required="required"
                   placeholder="请输入最低工资"
                   v-model="rpForm.minsalary"></el-input>
       </el-form-item>
       <el-form-item prop="maxsalary"
-                    label="最高工资">
+                    label="最高工资(K)">
         <el-input type="text"
                   required="required"
                   placeholder="请输入最高工资"

@@ -5,7 +5,7 @@
          id="my">
       <div v-if="this.aprList.length===0"
            class="noshowbox">
-        还没有收到简历
+        还没有人通过初筛
       </div>
       <div class="bigcontext"
            v-if="this.aprList.length!==0">
