@@ -11,6 +11,7 @@ import updataPass from '../page/UpdataPass.vue'
 import mymessage from '../page/MyMessage.vue'
 import OnlineResume from '../page/OnlineResume.vue'
 import OnlineResume2 from '../page/OnlineResume2.vue'
+import search from '../page/Search.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -59,15 +60,21 @@ export default new Router({
     name: 'myInfo',
     component: myInfo
   },{
-    path: 'OnlineResume',
+    path: '/OnlineResume',
     name: 'OnlineResume',
     component: OnlineResume
   }
   , {
-    path: 'OnlineResume2',
+    path: '/OnlineResume2',
     name: 'OnlineResume2',
     component: OnlineResume2
   }
+   , {
+     path: '/search',
+     name: 'search',
+     component: search
+   }
+
 
 
 

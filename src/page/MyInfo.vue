@@ -4,10 +4,12 @@
     <div class="content">
       <div class="person">
         <div class="imgdiv">
+          <van-uploader :after-read="afterRead" >
           <el-avatar
             :size="60"
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            :src="userObject.hrImg"
           ></el-avatar>
+          </van-uploader>
         </div>
         <div class="namecss">{{ userObject.hrName }}</div>
       </div>
@@ -26,6 +28,11 @@
         <div class="qicon2" @click="goToPostJob">
           <van-icon name="label-o" size="2.5rem" />
           <div class="text">发布职位</div>
+        </div>
+        <van-divider />
+         <div class="qicon2" @click="goToSearch">
+          <van-icon name="idcard" size="2.5rem" />
+          <div class="text">选择公司</div>
         </div>
         <van-divider />
         <div class="qicon2" @click="goToUpdataPass">
@@ -50,17 +57,51 @@ import MyTabbar from '../components/MyTabbar.vue';
 // 例如：import 《组件名称》 from '《组件路径》'
 
 export default {
+  // setup() {
+
+  //   return {
+  //     ,
+  //   };
+  // },
   components: { MyTabbar },
   // import引入的组件需要注入到对象中才能使用
 
   data() {
     // 这里存放数据
+     const afterRead = (file) => {
+      // 此时可以自行将文件上传至服务器
+      const params = new FormData();
+
+      params.append("files",file.file)
+      params.append("hrImg",this.userObject.hrImg)
+        let config = {
+          headers:{'Content-Type':'multipart/form-data'}
+        };
+      this.axios
+        .post("/api/upload/img",params,config)
+        .then((res) => {
+          if (res.data.code === "000000") {
+          this.$notify({ type: 'success', message: '上传成功' })
+           setTimeout(() => {
+                  this.$router.go(0)
+          }, 50);
+
+          }else if (res.data.code === "111111"){
+          this.$notify({ type: 'warning', message: res.data.message })
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
     return {
       userObject: {},
       age: "",
       education: "",
       sex: "",
       edList: [],
+      afterRead
     };
   },
   // 监听属性 类似于data概念
@@ -102,19 +143,27 @@ export default {
     goToMyHr(){
       this.$router.push({ name: "myHr" });
     },
+    goToSearch(){
+this.$router.push({ name: "search"});
+    },
     goToHr(){
    this.$router.push({ name: "updataHR",params:{hrInfo:this.userObject}});
     },
     goToPostJob() {
-        if (this.userObject.eid !== null && this.userObject.state === 0) {
+             this.entInfo();
+    setTimeout(() => {
+   if ((this.userObject.eid !== "" &&this.userObject.eid !== null) && this.userObject.state === 0) {
         this.$router.push("/")
         this.$notify({ type: 'warning', message: "该公司还在审核，请耐心等待" })
-      } else if (this.userObject.eid === null && this.userObject.state === 0) {
+      } else if ((this.userObject.eid === null || this.userObject.eid === "") && this.userObject.state === 0) {
         this.$router.push("/")
         this.$notify({ type: 'warning', message: "请先加入公司" })
       } else {
        this.$router.push({ name: "postJob",params:{eid:this.userObject.eid}})
       }
+      }, 300)
+
+
 
     },
     goToUpdataPass(){
