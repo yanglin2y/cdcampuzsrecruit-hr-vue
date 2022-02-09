@@ -15,8 +15,9 @@
       <div class="personInfo">
         <div class="personInfoName">
           {{userObject.apName}}
-
+          <el-button style="margin-left:2rem" type="primary" @click="goToChat" >立即沟通</el-button>
         </div>
+
         <div class="namecss">{{sex}}/{{age}}岁/{{education}}</div>
         <div class="namecss">手机号：{{userObject.iphone}}</div>
         <div class="namecss">邮箱:{{userObject.mail}}</div>
@@ -45,7 +46,6 @@
         <van-divider />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -90,6 +90,31 @@ export default {
   },
   // 方法集合
   methods: {
+    goToChat(){
+       const params = new URLSearchParams()
+      params.append('uid', this.userObject.uid)
+      params.append('apImg', this.userObject.apImg)
+      params.append('apName', this.userObject.apName)
+
+      this.axios
+        .post('/api/relation/addRelation', params)
+        .then((res) => {
+          if (res.data.code === '000000') {
+          } else if (res.data.code === '111111') {
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      this.$router.push({
+        name: 'chat',
+        params: {
+          uid:this.userObject.uid,
+          apImg:this.userObject.apImg,
+          apName:this.userObject.apName,
+        }
+      })
+    },
     passApResume() {
       this.axios
         .get('/api/apresume/passApResume', {
@@ -285,6 +310,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  line-height: var(--footer-height);
+  text-align: center;
+}
 .bt {
   margin-left: 10rem;
 }

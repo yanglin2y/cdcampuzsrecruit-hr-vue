@@ -92,7 +92,7 @@ export default {
       }
     },
     gotoHome () {
-      this.$router.push({path: '/user/login'})
+      this.$router.push({path: '/login'})
     },
     doRegister () {
       this.$router.push({path: '/register'})

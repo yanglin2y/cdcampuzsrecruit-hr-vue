@@ -41,11 +41,7 @@ export default {
   computed: {},
   // 监控data中的数据变化
   watch: {
-    'activeName': {
-      handler (newValue, oldValue) {
-        this.$store.commit('save', newValue)
-      }
-    }
+
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {},

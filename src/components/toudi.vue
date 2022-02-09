@@ -10,6 +10,7 @@
       <div class="bigcontext"
            v-if="this.aprList.length!==0">
         <div class="box">
+          <div style="height:.7rem"></div>
           <div class="context"
                v-for="(n, inx) in aprList"
                :key="inx"
@@ -46,11 +47,7 @@ export default {
   computed: {},
   // 监控data中的数据变化
   watch: {
-    'n': {
-      handler(newValue, oldValue) {
-        this.$store.commit('savetoudi', newValue)
-      }
-    }
+
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -124,6 +121,7 @@ export default {
 .mincontext {
   display: flex;
   flex-direction: flex-start;
+
 }
 .waitsee {
   overflow-y: auto;
@@ -133,6 +131,7 @@ export default {
   height: 100vh;
   width: 100%;
   background: white;
+  border-radius: 1rem;
 }
 .demo_warp .tab_tit {
   font-size: 1.3rem;

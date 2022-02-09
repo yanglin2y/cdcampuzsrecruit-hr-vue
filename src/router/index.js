@@ -12,6 +12,7 @@ import mymessage from '../page/MyMessage.vue'
 import OnlineResume from '../page/OnlineResume.vue'
 import OnlineResume2 from '../page/OnlineResume2.vue'
 import search from '../page/Search.vue'
+import chat from '../page/Chat.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -73,6 +74,11 @@ export default new Router({
      path: '/search',
      name: 'search',
      component: search
+   }
+   , {
+     path: '/chat',
+     name: 'chat',
+     component: chat
    }
 
 

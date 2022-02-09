@@ -113,7 +113,7 @@ export default {
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     setTimeout(() => {
-      this.entInfo();
+      this.selectHrInfo();
     }, 50);
   },
   beforeCreate() {}, // 生命周期 - 创建之前
@@ -126,7 +126,7 @@ export default {
   // 方法集合
   methods: {
 
-    entInfo() {
+    selectHrInfo() {
       this.axios
         .get("/api/user/selectHrInfo")
         .then((res) => {
@@ -134,6 +134,7 @@ export default {
             this.userObject = res.data.data;
               localStorage.setItem("eid",this.userObject.eid)
               localStorage.setItem('hrid',this.userObject.hrid)
+              localStorage.setItem('hrImg',this.userObject.hrImg)
           }
         })
         .catch(function (error) {
@@ -150,7 +151,7 @@ this.$router.push({ name: "search"});
    this.$router.push({ name: "updataHR",params:{hrInfo:this.userObject}});
     },
     goToPostJob() {
-             this.entInfo();
+             this.selectHrInfo();
     setTimeout(() => {
    if ((this.userObject.eid !== "" &&this.userObject.eid !== null) && this.userObject.state === 0) {
         this.$router.push("/")
